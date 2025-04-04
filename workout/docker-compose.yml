@@ -1,0 +1,28 @@
+version: "3"
+services:
+  workout:
+    image: doc-img4
+    ports:
+      - "9978:9978" 
+    networks:
+      - spring-mysql
+    depends_on:
+      - mysqldb
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3307/workout
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+
+  mysqldb:
+    image: mysql:latest
+
+    ports:
+      - "3307:3307"
+    networks:
+      - spring-mysql
+    environment:
+      - MYSQL_DATABASE=workout 
+      - MYSQL_ROOT_PASSWORD=root
+
+networks:
+  spring-mysql:
